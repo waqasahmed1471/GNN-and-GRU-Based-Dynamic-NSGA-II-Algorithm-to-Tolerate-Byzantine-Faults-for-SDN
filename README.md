@@ -1,0 +1,112 @@
+# GNN and GRU based Dynamic NSGA-II Algorithm for Switch-to-Controller Placement
+
+This repository provides an implementation of a Learning-Assisted Evolutionary Optimization framework for Software Defined Networking (SDN) 3f+1 switch-to-controller placement.
+
+The system combines:
+
+- GNN-GRU (Message Passing Graph Neural Network + GRU) for learning switch-to-controller placement patterns
+- NSGA-II (Non-Dominated Sorting Genetic Algorithm II) for multi-objective optimization
+
+The neural network learns incrementally from previous NSGA-II solutions and predicts mappings for future network graphs, which NSGA-II then refines.
+
+---
+
+# Features
+
+- Multi-objective switch-to-controller mapping optimization
+- Incremental online learning
+- Uses real network topology
+- Uses link delay and reliability as edge features
+- Hybrid Machine Learning + Evolutionary Optimization
+- Fully automated pipeline
+
+---
+
+# Requirements
+
+Python **3.9 or newer** is recommended.
+
+Install dependencies:
+# Core numerical libraries
+numpy>=1.23.0
+
+# Graph processing
+networkx>=3.0
+
+# Deep Learning
+torch>=2.0.0
+
+# PyTorch Geometric (Message Passing GNN)
+torch-geometric>=2.4.0
+
+# Evolutionary Optimization
+pymoo>=0.6.0
+
+# Optional but recommended for torch-geometric performance
+torch-scatter>=2.1.0
+torch-sparse>=0.6.17
+torch-cluster>=1.6.1
+torch-spline-conv>=1.2.2
+
+# libraries 
+pip install torch
+pip install torch-geometric
+pip install pymoo
+pip install networkx
+pip install numpy
+
+# Example output
+Mapping_graph0.json
+Mapping_graph1.json
+Mapping_graph2.json
+
+# Example mapping format
+{
+ "0":[1,1,0,0,1,0,1],
+ "1":[1,0,1,1,0,0,1]
+}
+
+# For example
+# Switch "0" is mapped to controller 0, 1, 4, 6
+# Switch "1" is mapped to controller 0, 2, 3, 6
+==============================================================
+# How the Code Reads Graph Files (Google Drive Version)
+
+This code reads all network graph files directly from your Google Drive. 
+Therefore, you must place the dataset in the correct Google Drive folder.
+
+---
+
+# Step 1: Mount Google Drive
+
+The code automatically mounts Google Drive using:
+
+```python
+from google.colab import drive
+drive.mount('/content/drive', force_remount=True)
+
+Your graph files can be placed in this exact folder in your Google Drive:
+
+DATA_PATH="/content/drive/MyDrive/data/deltacom2/"
+
+Traffic file can be located at location 
+/content/drive/MyDrive/data/graph_swrate.json
+Output of this algorithm is saved at location 
+OUTPUT_PATH="/content/drive/MyDrive/data/output_hybrid/"
+
+For example you can download and structure your google drive folder as 
+structure given below and run DNSGAIIBFT-SDN from coalab, fix the required file path as per your choice 
+
+MyDrive/
+│
+└── data/
+    │
+    ├── deltacom2/
+    │   ├── deltacome_graph0.json
+    │   ├── deltacome_graph1.json
+    │   ├── deltacome_graph2.json
+    │   └── ...
+    │
+    ├── graph_swrate.json
+    │
+    └── output_hybrid/
